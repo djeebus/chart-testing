@@ -53,8 +53,16 @@ func (p ProcessExecutor) RunProcessInDirAndCaptureOutput(workingDirectory string
 	cmd.Dir = workingDirectory
 	bytes, err := cmd.CombinedOutput()
 
+	if p.debug {
+		fmt.Println("<<<", string(bytes))
+		if err != nil {
+			fmt.Println("!!!", err.Error())
+		}
+		fmt.Println()
+	}
+
 	if err != nil {
-		return "", errors.Wrapf(err, "Error running process: %s", string(bytes))
+		return "", errors.Wrapf(err, "Error running process with output: %s", string(bytes))
 	}
 	return strings.TrimSpace(string(bytes)), nil
 }
@@ -68,8 +76,15 @@ func (p ProcessExecutor) RunProcessInDirAndCaptureStdout(workingDirectory string
 	cmd.Dir = workingDirectory
 	bytes, err := cmd.Output()
 
+	if p.debug {
+		fmt.Println("<<<", string(bytes))
+		if err != nil {
+			fmt.Println("!!!", err.Error())
+		}
+	}
+
 	if err != nil {
-		return "", errors.Wrapf(err, "Error running process: %s", string(bytes))
+		return "", errors.Wrapf(err, "Error running process with stdout: %s", string(bytes))
 	}
 	return strings.TrimSpace(string(bytes)), nil
 }
@@ -113,6 +128,7 @@ func (p ProcessExecutor) RunProcess(executable string, execArgs ...interface{}) 
 func (p ProcessExecutor) CreateProcess(executable string, execArgs ...interface{}) (*exec.Cmd, error) {
 	args, err := util.Flatten(execArgs)
 	if p.debug {
+		fmt.Println()
 		fmt.Println(">>>", executable, strings.Join(args, " "))
 	}
 	if err != nil {

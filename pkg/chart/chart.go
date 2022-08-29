@@ -710,7 +710,7 @@ func (t *Testing) ComputeChangedChartDirectories() ([]string, error) {
 
 	mergeBase, err := t.computeMergeBase()
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to compute merge base")
 	}
 
 	allChangedChartFiles, err := t.git.ListChangedFilesInDirs(mergeBase, cfg.ChartDirs...)
