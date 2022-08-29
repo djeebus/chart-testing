@@ -268,7 +268,7 @@ func NewTesting(config config.Configuration, extraSetArgs string) (Testing, erro
 		cmdExecutor:      tool.NewCmdTemplateExecutor(procExec),
 		accountValidator: tool.AccountValidator{},
 		directoryLister:  util.DirectoryLister{},
-		chartUtils:       util.ChartUtils{},
+		chartUtils:       util.ChartUtils{config.Debug},
 	}
 
 	versionString, err := testing.helm.Version()

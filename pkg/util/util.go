@@ -123,9 +123,15 @@ func (l DirectoryLister) ListChildDirs(parentDir string, test func(dir string) b
 	return dirs, nil
 }
 
-type ChartUtils struct{}
+type ChartUtils struct {
+	Debug bool
+}
 
 func (u ChartUtils) LookupChartDir(chartDirs []string, dir string) (string, error) {
+	if u.Debug {
+		fmt.Println("lookup-chart-dir [", strings.Join(chartDirs, ", "), "]", dir)
+	}
+
 	for _, chartDir := range chartDirs {
 		currentDir := dir
 		for {
