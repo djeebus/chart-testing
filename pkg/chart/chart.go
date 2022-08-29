@@ -740,7 +740,7 @@ func (t *Testing) ComputeChangedChartDirectories() ([]string, error) {
 				changedChartDirs = append(changedChartDirs, chartDir)
 			}
 		} else {
-			fmt.Fprintf(os.Stderr, "Directory '%s' is not a valid chart directory. Skipping...\n", dir)
+			fmt.Fprintf(os.Stderr, "Directory '%s' is not a valid chart directory. %v \n Skipping...\n", dir, err)
 		}
 	}
 
