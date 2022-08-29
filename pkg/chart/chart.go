@@ -727,7 +727,7 @@ func (t *Testing) ComputeChangedChartDirectories() ([]string, error) {
 		dir := filepath.Dir(file)
 		// Make sure directory is really a chart directory
 		chartDir, err := t.chartUtils.LookupChartDir(cfg.ChartDirs, dir)
-		chartDirElement := strings.Split(chartDir, "/")
+		chartDirElement := strings.Split(chartDir, string(filepath.Separator))
 		if err == nil {
 			if len(chartDirElement) > 1 {
 				chartDirName := chartDirElement[len(chartDirElement)-1]

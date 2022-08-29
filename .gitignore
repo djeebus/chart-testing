@@ -5,3 +5,5 @@
 /dist
 /config.*
 vendor
+.envrc
+.tool-versions

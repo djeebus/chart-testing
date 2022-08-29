@@ -54,7 +54,7 @@ func (p ProcessExecutor) RunProcessInDirAndCaptureOutput(workingDirectory string
 	bytes, err := cmd.CombinedOutput()
 
 	if err != nil {
-		return "", errors.Wrap(err, "Error running process")
+		return "", errors.Wrapf(err, "Error running process: %s", string(bytes))
 	}
 	return strings.TrimSpace(string(bytes)), nil
 }
@@ -69,7 +69,7 @@ func (p ProcessExecutor) RunProcessInDirAndCaptureStdout(workingDirectory string
 	bytes, err := cmd.Output()
 
 	if err != nil {
-		return "", errors.Wrap(err, "Error running process")
+		return "", errors.Wrapf(err, "Error running process: %s", string(bytes))
 	}
 	return strings.TrimSpace(string(bytes)), nil
 }
